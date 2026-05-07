@@ -1,10 +1,10 @@
 -- just general utility functions that are handy when i make me codees
 -- usually just changing the state table name is enough to use this as a template for other movesets,, is this good practice X3?
 
-gcharStates = {}
-function reset_char_states(index)
+gAshaStates = {}
+function reset_asha_states(index)
     if index == nil then index = 0 end
-    gcharStates[index] = {
+    gAshaStates[index] = {
         index = network_global_index_from_local(0),
         actionTick = 0,
         prevFrameAction = 0,
@@ -23,8 +23,9 @@ function reset_char_states(index)
 end
 
 for i = 0, (MAX_PLAYERS - 1) do
-    reset_char_states(i)
+    reset_asha_states(i)
 end
+charSelect.character_hook_moveset(CHAR_ASHA, HOOK_ON_LEVEL_INIT, reset_asha_states)
 
 c = gMarioStates[0] -- just in case m doesnt exist,,
 
@@ -198,7 +199,7 @@ end
 
 function init_locals(m)
     init_buttons()
-    e = gcharStates[m.playerIndex]
+    e = gAshaStates[m.playerIndex]
     mag = m.controller.stickMag / 64
     intendedYawbutcoolig = s16(m.intendedYaw - m.faceAngle.y)
     action = c.action 
@@ -245,9 +246,13 @@ function determine_stick_spin(c)
 end
 
 function check_spin(c)
-    local e = gcharStates[c.playerIndex]
+    local e = gAshaStates[c.playerIndex]
     if e.spinTimer > 0 then
         return true
     end
     return false
+end
+
+local function update_lariat_speed(m)
+    
 end
