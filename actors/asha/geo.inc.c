@@ -36,7 +36,7 @@ const GeoLayout asha_B_LoD_Switch_opt0_Cap_State_Switch_opt1_Capless_Switch_opt0
 const GeoLayout asha_B_LoD_Switch_opt0_Cap_State_Switch_opt1[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_ANIMATED_PART(LAYER_OPAQUE, -26, 0, 0, NULL),
+		GEO_ANIMATED_PART(LAYER_OPAQUE, 1, 0, 0, NULL),
 		GEO_OPEN_NODE(),
 			GEO_SCALE(LAYER_OPAQUE, 32768),
 			GEO_OPEN_NODE(),
@@ -187,7 +187,7 @@ const GeoLayout asha_B_LoD_Switch_opt0_Cap_State_Switch_opt2_jump_asha_Right_Han
 const GeoLayout asha_B_LoD_Switch_opt0_Cap_State_Switch_opt2[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_ANIMATED_PART(LAYER_OPAQUE, -26, 0, 0, NULL),
+		GEO_ANIMATED_PART(LAYER_OPAQUE, 1, 0, 0, NULL),
 		GEO_OPEN_NODE(),
 			GEO_SCALE(LAYER_OPAQUE, 32768),
 			GEO_OPEN_NODE(),
@@ -335,7 +335,7 @@ const GeoLayout asha_B_LoD_Switch_opt0_Cap_State_Switch_opt3_jump_asha_Right_Han
 const GeoLayout asha_B_LoD_Switch_opt0_Cap_State_Switch_opt3[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_ANIMATED_PART(LAYER_OPAQUE, -26, 0, 0, NULL),
+		GEO_ANIMATED_PART(LAYER_OPAQUE, 1, 0, 0, NULL),
 		GEO_OPEN_NODE(),
 			GEO_SCALE(LAYER_OPAQUE, 32768),
 			GEO_OPEN_NODE(),
@@ -520,7 +520,7 @@ const GeoLayout asha_geo[] = {
 						GEO_OPEN_NODE(),
 							GEO_NODE_START(),
 							GEO_OPEN_NODE(),
-								GEO_ANIMATED_PART(LAYER_OPAQUE, -26, 0, 0, NULL),
+								GEO_ANIMATED_PART(LAYER_OPAQUE, 1, 0, 0, NULL),
 								GEO_OPEN_NODE(),
 									GEO_SCALE(LAYER_OPAQUE, 32768),
 									GEO_OPEN_NODE(),
