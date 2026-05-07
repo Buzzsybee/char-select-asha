@@ -3319,6 +3319,7 @@ Gfx mat_asha_belly[] = {
 	gsDPSetAlphaDither(G_AD_NOISE),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetPrimColor(0, 0, 201, 255, 124, 255),
+	gsSPCopyPlayerPartToColor(G_COL_PRIM, 5, 0),
 	gsSPEndDisplayList(),
 };
 
@@ -3428,7 +3429,7 @@ Gfx mat_revert_asha_hair[] = {
 };
 
 Gfx mat_asha_Half_Closed_Eyes__SKIN_[] = {
-	gsSPSetLights1(asha_Half_Closed_Eyes__SKIN__lights),
+	gsSPCopyLightsPlayerPart(SKIN),
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, SHADE, TEXEL0_ALPHA, SHADE, 0, 0, 0, ENVIRONMENT, TEXEL0, SHADE, TEXEL0_ALPHA, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsDPSetAlphaDither(G_AD_NOISE),
@@ -3448,7 +3449,7 @@ Gfx mat_revert_asha_Half_Closed_Eyes__SKIN_[] = {
 };
 
 Gfx mat_asha_Closed_Eyes__SKIN_[] = {
-	gsSPSetLights1(asha_Closed_Eyes__SKIN__lights),
+	gsSPCopyLightsPlayerPart(SKIN),
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, SHADE, TEXEL0_ALPHA, SHADE, 0, 0, 0, ENVIRONMENT, TEXEL0, SHADE, TEXEL0_ALPHA, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsDPSetAlphaDither(G_AD_NOISE),
@@ -3468,7 +3469,7 @@ Gfx mat_revert_asha_Closed_Eyes__SKIN_[] = {
 };
 
 Gfx mat_asha_Dead_Eyes__SKIN_[] = {
-	gsSPSetLights1(asha_Dead_Eyes__SKIN__lights),
+	gsSPCopyLightsPlayerPart(SKIN),
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, SHADE, TEXEL0_ALPHA, SHADE, 0, 0, 0, ENVIRONMENT, TEXEL0, SHADE, TEXEL0_ALPHA, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsDPSetAlphaDither(G_AD_NOISE),
