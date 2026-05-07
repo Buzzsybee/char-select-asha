@@ -13,21 +13,34 @@ local E_MODEL_ASHA = smlua_model_util_get_id("asha_geo")
 --local ASHA_GRAFFITI = get_texture_info("asha_graffiti")
 
 local PALETTE_ASHA = {
-    [PANTS]  = "FFFFFF",
-    [SHIRT]  = "FFFFFF",
+    [PANTS]  = "1F1E1E",
+    [SHIRT]  = "AD5376",
     [GLOVES] = "FFFFFF",
     [SHOES]  = "FFFFFF",
-    [HAIR]   = "FFFFFF",
-    [SKIN]   = "FFFFFF",
-    [CAP]    = "FFFFFF",
+    [HAIR]   = "261713",
+    [SKIN]   = "A7BD5A",
+    [CAP]    = "353131",
 	[EMBLEM] = "FFFFFF"
 }
 
-anims = {
-    [charSelect.CS_ANIM_MENU] = 'CHAR_MENU_ANIM'
+local PALETTE_ASHA_HUGO = {
+    [PANTS]  = "9e3965",
+    [SHIRT]  = "ff51aa",
+    [GLOVES] = "FFFFFF",
+    [SHOES]  = "FFFFFF",
+    [HAIR]   = "1F1E1E",
+    [SKIN]   = "ffbd87",
+    [CAP]    = "353131",
+    [EMBLEM] = "FFFFFF"
 }
 
-_G.charSelect.character_add_palette_preset(E_MODEL_ASHA, PALETTE_ASHA)
+anims = {
+    [charSelect.CS_ANIM_MENU] = 'ASHA_MENU_POSE'
+}
+
+_G.charSelect.character_add_palette_preset(E_MODEL_ASHA, PALETTE_ASHA, "Original Asha")
+_G.charSelect.character_add_palette_preset(E_MODEL_ASHA, PALETTE_ASHA_HUGO, "Hugo")
+
 
 
 CHAR_ASHA = _G.charSelect.character_add(
@@ -38,8 +51,8 @@ CHAR_ASHA = _G.charSelect.character_add(
     E_MODEL_ASHA,       -- Character Model
     CT_MARIO,           -- Override Character
     ICON_ASHA, -- Life Icon
-    1.2                  -- Camera Scale
+    1.4                  -- Camera Scale
 )
 
---if anims then charSelect.character_add_animations(E_MODEL_ASHA, anims) end
+if anims then charSelect.character_add_animations(E_MODEL_ASHA, anims) end
 --charSelect.character_add_graffiti(CHAR_ASHA, ASHA_GRAFFITI)
