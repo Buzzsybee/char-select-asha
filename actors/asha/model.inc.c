@@ -7,8 +7,8 @@ Lights1 asha_skin_lights = gdSPDefLights1(
 	0xA7, 0xBD, 0x5A, 0x28, 0x28, 0x28);
 
 Lights1 asha_belly_lights = gdSPDefLights1(
-	0x72, 0x7F, 0x46,
-	0xE5, 0xFF, 0x91, 0x28, 0x28, 0x28);
+	0x51, 0x5D, 0x29,
+	0xA7, 0xBD, 0x5A, 0x28, 0x28, 0x28);
 
 Lights1 asha_buckle_lights = gdSPDefLights1(
 	0x7F, 0x7F, 0x7F,
@@ -3282,7 +3282,7 @@ Gfx asha_Right_Shoe_DL_mesh_layer_1_tri_1[] = {
 
 Gfx mat_asha_pants[] = {
 	gsSPClearGeometryMode(G_CULL_BACK),
-	gsSPSetLights1(asha_pants_lights),
+	gsSPCopyLightsPlayerPart(PANTS),
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsDPSetAlphaDither(G_AD_NOISE),
@@ -3298,7 +3298,7 @@ Gfx mat_revert_asha_pants[] = {
 };
 
 Gfx mat_asha_skin[] = {
-	gsSPSetLights1(asha_skin_lights),
+	gsSPCopyLightsPlayerPart(SKIN),
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsDPSetAlphaDither(G_AD_NOISE),
@@ -3313,11 +3313,12 @@ Gfx mat_revert_asha_skin[] = {
 };
 
 Gfx mat_asha_belly[] = {
-	gsSPSetLights1(asha_belly_lights),
+	gsSPCopyLightsPlayerPart(SKIN),
 	gsDPPipeSync(),
-	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
+	gsDPSetCombineLERP(0, 0, SHADE, PRIMITIVE, 0, 0, 0, ENVIRONMENT, 0, 0, SHADE, PRIMITIVE, 0, 0, 0, ENVIRONMENT),
 	gsDPSetAlphaDither(G_AD_NOISE),
 	gsSPTexture(65535, 65535, 0, 0, 1),
+	gsDPSetPrimColor(0, 0, 201, 255, 124, 255),
 	gsSPEndDisplayList(),
 };
 
@@ -3329,7 +3330,7 @@ Gfx mat_revert_asha_belly[] = {
 
 Gfx mat_asha_buckle[] = {
 	gsSPClearGeometryMode(G_CULL_BACK),
-	gsSPSetLights1(asha_buckle_lights),
+	gsSPCopyLightsPlayerPart(EMBLEM),
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, SHADE, 0, TEXEL0, 0, ENVIRONMENT, 0),
 	gsDPSetAlphaDither(G_AD_NOISE),
@@ -3377,7 +3378,7 @@ Gfx mat_revert_asha_Metal__METAL_[] = {
 };
 
 Gfx mat_asha_shirt[] = {
-	gsSPSetLights1(asha_shirt_lights),
+	gsSPCopyLightsPlayerPart(SHIRT),
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsDPSetAlphaDither(G_AD_NOISE),
@@ -3392,7 +3393,7 @@ Gfx mat_revert_asha_shirt[] = {
 };
 
 Gfx mat_asha_face[] = {
-	gsSPSetLights1(asha_face_lights),
+	gsSPCopyLightsPlayerPart(SKIN),
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, SHADE, TEXEL0_ALPHA, SHADE, 0, 0, 0, ENVIRONMENT, TEXEL0, SHADE, TEXEL0_ALPHA, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsDPSetAlphaDither(G_AD_NOISE),
@@ -3412,7 +3413,7 @@ Gfx mat_revert_asha_face[] = {
 };
 
 Gfx mat_asha_hair[] = {
-	gsSPSetLights1(asha_hair_lights),
+	gsSPCopyLightsPlayerPart(HAIR),
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsDPSetAlphaDither(G_AD_NOISE),
@@ -3529,7 +3530,7 @@ Gfx mat_revert_asha_Wing_Base[] = {
 };
 
 Gfx mat_asha_cuffs[] = {
-	gsSPSetLights1(asha_cuffs_lights),
+	gsSPCopyLightsPlayerPart(CAP),
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsDPSetAlphaDither(G_AD_NOISE),
