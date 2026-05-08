@@ -13,6 +13,7 @@ function reset_asha_states(index)
         eastTimer = 0,
         westTimer = 0,
         spinTimer = 0,
+        explosionAllowed = true,
 
         lastSpeed = 0,
 
@@ -154,6 +155,17 @@ end
 
 function spawn_particle(m, particle)
     m.particleFlags = m.particleFlags | particle
+end
+
+function spawn_explosion(m, particleWhenOff)
+    local e = gAshaStates[m.playerIndex]
+
+    if e.explosionAllowed then
+        local explosionObj  = spawn_sync_object(id_bhvExplosion, E_MODEL_EXPLOSION, m.pos.x, m.pos.y, m.pos.z, function(explosionObj)
+            explosionObj.oHealth = 64
+        end)
+    else spawn_particle(m, particleWhenOff)
+    end
 end
 
 -- controller button variables for simplicity :3
