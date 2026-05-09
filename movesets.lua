@@ -4,11 +4,16 @@ ASHA_ACT_DOUBLE_LARIAT = allocate_mario_action(ACT_FLAG_ATTACKING | ACT_GROUP_MO
 ASHA_ACT_RUNNING_LARIAT = allocate_mario_action(ACT_FLAG_ATTACKING | ACT_GROUP_MOVING | ACT_FLAG_MOVING)
 ASHA_ACT_BODY_PRESS = allocate_mario_action(ACT_FLAG_ATTACKING | ACT_FLAG_INVULNERABLE | ACT_FLAG_AIR | ACT_GROUP_AIRBORNE)
 ASHA_ACT_BODY_PRESS_LAND = allocate_mario_action(ACT_FLAG_ATTACKING | ACT_FLAG_INVULNERABLE | ACT_GROUP_MOVING | ACT_FLAG_MOVING)
+ASHA_ACT_WATER_GP = allocate_mario_action(ACT_FLAG_ATTACKING | ACT_FLAG_SWIMMING | ACT_GROUP_SUBMERGED)
+ASHA_ACT_WATER_GP_LAND = allocate_mario_action(ACT_FLAG_ATTACKING | ACT_FLAG_SWIMMING | ACT_GROUP_SUBMERGED)
+ASHA_ACT_DEATH_ROLL = allocate_mario_action(ACT_FLAG_ATTACKING | ACT_FLAG_SWIMMING | ACT_GROUP_SUBMERGED)
 --from extra chars plus :3
-ACTS_HOLD_JUMP        = allocate_mario_action(ACT_GROUP_AIRBORNE | ACT_FLAG_AIR | ACT_FLAG_ALLOW_VERTICAL_WIND_ACTION)
-ACTS_HOLD_FREEFALL    = allocate_mario_action(ACT_GROUP_AIRBORNE | ACT_FLAG_AIR | ACT_FLAG_ALLOW_VERTICAL_WIND_ACTION)
+ACTS_HOLD_JUMP = allocate_mario_action(ACT_GROUP_AIRBORNE | ACT_FLAG_AIR | ACT_FLAG_ALLOW_VERTICAL_WIND_ACTION)
+ACTS_HOLD_FREEFALL = allocate_mario_action(ACT_GROUP_AIRBORNE | ACT_FLAG_AIR | ACT_FLAG_ALLOW_VERTICAL_WIND_ACTION)
 ACT_PILEDRIVER = allocate_mario_action(ACT_GROUP_AIRBORNE | ACT_FLAG_AIR | ACT_FLAG_ATTACKING | ACT_FLAG_ALLOW_VERTICAL_WIND_ACTION)
 ACT_PILEDRIVER_LAND = allocate_mario_action(ACT_GROUP_MOVING | ACT_FLAG_MOVING | ACT_FLAG_ATTACKING)
+ACTS_SPINNING_OBJ = allocate_mario_action(ACT_GROUP_OBJECT | ACT_FLAG_STATIONARY)
+
 
 ---@param o Object
 local function bhv_shockwave_asha_init(o)
@@ -127,7 +132,7 @@ function act_running_lariat(m)
     e.gfxAngleY = e.gfxAngleY + 0x2000
     m.marioObj.header.gfx.angle.y = e.gfxAngleY
 
-    if not buttonZdown or m.actionTimer > 70 then
+    if m.actionTimer > 70 then
         m.invincTimer = 0
         m.actionTimer = 0
         return set_mario_action(m, ACT_WALKING, 0)
@@ -149,6 +154,7 @@ function acts_hold_jump(m)
     end
 
     if (m.input & INPUT_Z_PRESSED) ~= 0 then
+        m.vel.y = 30
         return set_mario_action(m, ACT_PILEDRIVER, 0)
     end
 
@@ -171,6 +177,7 @@ function acts_hold_freefall(m)
     end
 
     if (m.input & INPUT_Z_PRESSED) ~= 0 then
+        m.vel.y = 30
         return set_mario_action(m, ACT_PILEDRIVER, 0)
     end
 
@@ -303,6 +310,175 @@ function act_flying_body_press(m)
 end
 hook_mario_action(ASHA_ACT_BODY_PRESS, act_flying_body_press)
 
+--also from extra chars plus :3
+function acts_spinning_obj(m)
+    local spin = 0
+
+    -- throw object
+    if m.playerIndex == 0 and (m.input & INPUT_B_PRESSED) ~= 0 then
+        play_character_sound_if_no_flag(m, CHAR_SOUND_WAH2, MARIO_MARIO_SOUND_PLAYED)
+        play_sound_if_no_flag(m, SOUND_ACTION_THROW, MARIO_ACTION_SOUND_PLAYED)
+        return set_mario_action(m, ACT_RELEASING_BOWSER, 0)
+    end
+
+    -- set animation
+    if m.playerIndex == 0 and m.angleVel.y == 0 then
+        m.actionTimer = m.actionTimer + 1
+        if m.actionTimer > 120 then
+            return set_mario_action(m, ACT_RELEASING_BOWSER, 1)
+        end
+
+        set_mario_animation(m, MARIO_ANIM_HOLDING_BOWSER)
+    else
+        m.actionTimer = 0
+        set_mario_animation(m, MARIO_ANIM_SWINGING_BOWSER)
+    end
+
+    -- spin
+    if m.intendedMag > 20.0 then
+        -- spin = acceleration
+        spin = (m.intendedYaw - m.twirlYaw) / 0x20
+
+        if spin < -0x80 then
+            spin = -0x80
+        end
+        if spin > 0x80 then
+            spin = 0x80
+        end
+
+        m.twirlYaw = m.intendedYaw
+        m.angleVel.y = m.angleVel.y + spin
+
+        if m.angleVel.y > 0x1000 then
+            m.angleVel.y = 0x1000
+        end
+        if m.angleVel.y < -0x1000 then
+            m.angleVel.y = -0x1000
+        end
+    elseif m.angleVel.y > -0x750 and m.angleVel.y < 0x750 then
+        -- go back to walking
+        if m.forwardVel ~= 0 then m.faceAngle.y = atan2s(m.vel.z, m.vel.x) end
+        return set_mario_action(m, ACT_HOLD_WALKING, 0)
+    else
+        -- slow down spin
+        m.angleVel.y = approach_s32(m.angleVel.y, 0, 128, 128);
+    end
+
+    -- apply spin
+    spin = m.faceAngle.y
+    m.faceAngle.y = m.faceAngle.y + m.angleVel.y
+
+    -- play sound on overflow
+    if m.angleVel.y <= -0x100 and spin < m.faceAngle.y then
+        queue_rumble_data_mario(m, 4, 20)
+        play_sound(SOUND_OBJ_BOWSER_SPINNING, m.marioObj.header.gfx.cameraToObject)
+    end
+    if m.angleVel.y >= 0x100 and spin > m.faceAngle.y then
+        queue_rumble_data_mario(m, 4, 20)
+        play_sound(SOUND_OBJ_BOWSER_SPINNING, m.marioObj.header.gfx.cameraToObject)
+    end
+
+    perform_ground_step(m)
+
+    apply_slope_decel(m, 0.1)
+
+    if m.angleVel.y >= 0 then
+        m.marioObj.header.gfx.angle.x = -m.angleVel.y
+    else
+        m.marioObj.header.gfx.angle.x = m.angleVel.y
+    end
+
+    return false
+end
+hook_mario_action(ACTS_SPINNING_OBJ, acts_spinning_obj)
+
+function asha_act_water_gp(m)
+    if m.actionTimer == 0 then
+        play_sound(SOUND_ACTION_SPIN, m.marioObj.header.gfx.cameraToObject)
+        m.vel.y = 0
+        m.forwardVel = 0
+        m.marioObj.header.gfx.angle.y = 0
+        m.marioObj.header.gfx.angle.x = 0
+        m.marioObj.header.gfx.angle.z = 0
+    end
+
+    set_mario_animation(m, MARIO_ANIM_START_GROUND_POUND)
+
+    local stepResult = perform_water_step(m)
+    if m.actionTimer == 10 then
+        m.vel.y = -50
+    end
+
+    if m.actionTimer > 15 then
+        m.vel.y = approach_s32(m.vel.y, 0, 5, 5)
+        if m.vel.y == 0 then
+            m.actionTimer = 0
+            return set_mario_action(m, ACT_WATER_IDLE, 0)
+        end
+    end
+    
+    if stepResult == WATER_STEP_HIT_FLOOR then
+        return set_mario_action(m, ASHA_ACT_WATER_GP_LAND, 0)
+    end
+
+    if buttonBpress then
+        spawn_particle(m, PARTICLE_VERTICAL_STAR)
+        return set_mario_action(m, ASHA_ACT_DEATH_ROLL, 0)
+    end
+
+    m.actionTimer = m.actionTimer + 1
+    return 0
+end
+hook_mario_action(ASHA_ACT_WATER_GP, asha_act_water_gp)
+
+function asha_water_gp_land(m)
+    if m.actionTimer == 0 then
+        shockwave_spawn(m)
+        play_mario_heavy_landing_sound(m, SOUND_ACTION_TERRAIN_HEAVY_LANDING)
+        spawn_particle(m, PARTICLE_BUBBLE)
+    end
+    set_mario_animation(m, MARIO_ANIM_GROUND_POUND)
+
+    local stepResult = perform_water_step(m)
+
+    if m.actionTimer > 10 then return set_mario_action(m, ACT_WATER_IDLE, 0) end
+
+    m.actionTimer = m.actionTimer + 1
+    return 0
+end
+hook_mario_action(ASHA_ACT_WATER_GP_LAND, asha_water_gp_land)
+
+function asha_act_death_roll(m)
+    if m.actionTimer == 0 then
+        play_sound(SOUND_ACTION_SPIN, m.marioObj.header.gfx.cameraToObject)
+    end
+
+    if not buttonZdown then return set_mario_action(m, ACT_WATER_IDLE, 0) end
+
+    set_mario_animation(m, MARIO_ANIM_DIVE)
+
+    local stepResult = perform_water_step(m)
+    mario_set_forward_vel(m, 60)
+
+    if buttonZpress then
+        return set_mario_action(m, ASHA_ACT_WATER_GP, 0)
+    end
+
+    if stepResult == WATER_STEP_HIT_WALL then
+        return set_mario_action(m, ACT_BACKWARD_WATER_KB, 0)
+    end
+    if stepResult == WATER_STEP_HIT_FLOOR then
+        return set_mario_action(m, ACT_BACKWARD_WATER_KB, 0)
+    end
+    if stepResult == WATER_STEP_HIT_CEILING then
+        return set_mario_action(m, ACT_BACKWARD_WATER_KB, 0)
+    end
+
+    m.actionTimer = m.actionTimer + 1
+    return 0
+end
+hook_mario_action(ASHA_ACT_DEATH_ROLL, asha_act_death_roll)
+
 function asha_before_phys_step(m)
     local hScale = 1.0
     local vScale = 1.0
@@ -337,7 +513,9 @@ end
 ---@param m MarioState
 local function update_asha(m)
     init_locals(m)
-     -- turn heavy objects into light
+    determine_stick_spin(c)
+    check_spin(m)
+    -- turn heavy objects into light
     if m.action == ACT_HOLD_HEAVY_IDLE then
         return set_mario_action(m, ACT_HOLD_IDLE, 0)
     end
@@ -350,6 +528,19 @@ local function update_asha(m)
         set_mario_action(m, ASHA_ACT_DOUBLE_LARIAT, 0)
     end
 
+    if m.action == ACT_HOLD_IDLE or m.action == ACT_HOLD_WALKING then
+        if e.spinTimer > 0 then
+            m.twirlYaw = m.intendedYaw
+            
+            m.intendedMag = 21
+            return set_mario_action(m, ACTS_SPINNING_OBJ, 0)
+        end
+    end
+
+    if (m.action == ACT_WATER_IDLE or m.action == ACT_SWIMMING_END or m.action == ACT_WATER_ACTION_END) and buttonZpress then
+        m.actionTimer = 0
+        return set_mario_action(m, ASHA_ACT_WATER_GP, 0)
+    end
 end
 charSelect.character_hook_moveset(CHAR_ASHA, HOOK_MARIO_UPDATE, update_asha)
 charSelect.character_hook_moveset(CHAR_ASHA, HOOK_ON_SET_MARIO_ACTION, on_set_action_a)
