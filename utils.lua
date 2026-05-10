@@ -209,6 +209,10 @@ function set_turn_speed(speed)
     c.faceAngle.y = c.intendedYaw - approach_s32(intendedYawbutcoolig, 0, speed, speed)
 end
 
+function set_turn_speed_x(speed)
+    c.faceAngle.x = c.intendedYaw - approach_s32(intendedYawbutcoolig, 0, speed, speed)
+end
+
 function init_locals(m)
     init_buttons()
     e = gAshaStates[m.playerIndex]
@@ -263,8 +267,4 @@ function check_spin(c)
         return true
     end
     return false
-end
-
-local function update_lariat_speed(m)
-    
 end
