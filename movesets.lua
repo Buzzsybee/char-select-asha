@@ -111,7 +111,7 @@ function act_running_lariat(m)
      -- turn heavy objects into light
 
     if m.actionTimer == 0 then
-		play_character_sound(m, CHAR_SOUND_YAH)
+		play_character_sound(m, CHAR_SOUND_YAHOO)
         play_sound(SOUND_ACTION_SPIN, m.marioObj.header.gfx.cameraToObject)
         m.invincTimer = 30
     end
