@@ -9,8 +9,8 @@ if not _G.charSelectExists then
 end
 
 local E_MODEL_ASHA = smlua_model_util_get_id("asha_geo")
---local ICON_ASHA= get_texture_info("asha_icon")
---local ASHA_GRAFFITI = get_texture_info("asha_graffiti")
+local ICON_ASHA= get_texture_info("asha_icon")
+local ASHA_GRAFFITI = get_texture_info("asha_graffiti")
 
 local PALETTE_ASHA = {
     [PANTS]  = "1F1E1E",
@@ -50,7 +50,7 @@ local VOICETABLE_ASHA = {
 	[CHAR_SOUND_YAH_WAH_HOO] =       {'CharJump1.ogg', 'CharJump2.ogg', 'CharJump3.ogg'}, -- First Jump Sounds
 	[CHAR_SOUND_HOOHOO] =            'CharDoubleJump.ogg', -- Second jump sound
 	[CHAR_SOUND_YAHOO_WAHA_YIPPEE] = {'CharTripleJump1.ogg', 'CharTripleJump2.ogg'}, -- Triple jump sounds
-	[CHAR_SOUND_UH] =                'CharBonk.ogg', -- Soft wall bonk
+	[CHAR_SOUND_UH] =                'CharBonkSoft.ogg', -- Soft wall bonk
 	[CHAR_SOUND_UH2] =               'CharLedgeGetUp.ogg', -- Quick ledge get up
 	[CHAR_SOUND_UH2_2] =             'CharLongJumpLand.ogg', -- Landing after long jump
 	[CHAR_SOUND_DOH] =               'CharBonk.ogg', -- Hard wall bonk
@@ -104,4 +104,4 @@ CHAR_ASHA = _G.charSelect.character_add(
 
 if anims then charSelect.character_add_animations(E_MODEL_ASHA, anims) end
 charSelect.character_add_voice(E_MODEL_ASHA, VOICETABLE_ASHA)
---charSelect.character_add_graffiti(CHAR_ASHA, ASHA_GRAFFITI)
+charSelect.character_add_graffiti(CHAR_ASHA, ASHA_GRAFFITI)
