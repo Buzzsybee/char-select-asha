@@ -33,7 +33,7 @@ local PALETTE_ASHA_HUGO = {
     [CAP]    = "353131",
     [EMBLEM] = "FFFFFF"
 }
-_G.charSelect.character_add_palette_preset(E_MODEL_ASHA, PALETTE_ASHA, "Original Asha")
+_G.charSelect.character_add_palette_preset(E_MODEL_ASHA, PALETTE_ASHA, "Default")
 _G.charSelect.character_add_palette_preset(E_MODEL_ASHA, PALETTE_ASHA_HUGO, "Hugo")
 
 anims = {
