@@ -395,16 +395,18 @@ hook_mario_action(ACTS_SPINNING_OBJ, acts_spinning_obj)
 function asha_act_water_gp(m)
     if m.actionTimer == 0 then
         play_sound(SOUND_ACTION_SPIN, m.marioObj.header.gfx.cameraToObject)
-        m.vel.y = 0
-        m.forwardVel = 0
-        m.marioObj.header.gfx.angle.y = 0
-        m.marioObj.header.gfx.angle.x = 0
-        m.marioObj.header.gfx.angle.z = 0
+        play_character_sound(m, CHAR_SOUND_HRMM)
     end
 
     set_mario_animation(m, MARIO_ANIM_START_GROUND_POUND)
 
     local stepResult = perform_water_step(m)
+    if m.actionTimer < 10 then 
+        m.vel.y = 0
+    else
+        mario_set_forward_vel(m, 0)
+    end
+
     if m.actionTimer == 10 then
         m.vel.y = -50
     end
@@ -435,6 +437,7 @@ function asha_water_gp_land(m)
     if m.actionTimer == 0 then
         shockwave_spawn(m)
         play_mario_heavy_landing_sound(m, SOUND_ACTION_TERRAIN_HEAVY_LANDING)
+        play_character_sound(m, CHAR_SOUND_GROUND_POUND_WAH)
         spawn_particle(m, PARTICLE_BUBBLE)
     end
     set_mario_animation(m, MARIO_ANIM_GROUND_POUND)
@@ -455,7 +458,7 @@ function asha_act_death_roll(m)
         play_sound(SOUND_ACTION_SPIN, m.marioObj.header.gfx.cameraToObject)
     end
 
-    if not buttonZdown then return set_mario_action(m, ACT_WATER_IDLE, 0) end
+    if not buttonBdown then return set_mario_action(m, ACT_WATER_IDLE, 0) end
 
     set_mario_animation(m, MARIO_ANIM_SWIM_PART2)
     smlua_anim_util_set_animation(m.marioObj, HONI_ANIM_DIVE_ROTATE)
@@ -463,8 +466,7 @@ function asha_act_death_roll(m)
     local stepResult = perform_water_step(m)
 
     mario_set_forward_vel(m, 60)
-    
-    
+
     --spinny spinny
     e.gfxAngleZ = e.gfxAngleZ + 0x1000
     m.marioObj.header.gfx.angle.z = e.gfxAngleZ
@@ -478,22 +480,22 @@ function asha_act_death_roll(m)
 
     --upward and downward movement
     if m.controller.stickY > 0 then
-       m.faceAngle.x = approach_s16_symmetric(m.faceAngle.x, -10000, 1000)
+       m.faceAngle.x = approach_s32(m.faceAngle.x, ded_to_hex(-20), 0x800, 0x800)
        m.vel.y = m.vel.y - 9
-    else m.faceAngle.x = 0 end
+    end
 
     if m.controller.stickY < 0 then
-        m.faceAngle.x = approach_s16_symmetric(m.faceAngle.x, 10000, 1000)
+        m.faceAngle.x = approach_s32(m.faceAngle.x, ded_to_hex(20), 0x800, 0x800)
         m.vel.y = m.vel.y + 9
-    else m.faceAngle.x = 0 end
+    end
 
-    if m.vel.y == -20 then m.vel.y = -20 end
-    if m.vel.y == 20 then m.vel.y = 20 end
+    if m.vel.y <= -30 then m.vel.y = -30 end
+    if m.vel.y >= 30 then m.vel.y = 30 end
     --resetting the pitch :3
     if m.controller.stickY == 0 then
         m.vel.y = 0
-        m.faceAngle.x = approach_s16_symmetric(m.faceAngle.x, 0, 1000)
-    else return end
+        m.faceAngle.x = approach_s32(m.faceAngle.x, ded_to_hex(0), 0x1000, 0x1000)
+    end
 
     if buttonZpress then
         return set_mario_action(m, ASHA_ACT_WATER_GP, 0)
@@ -501,12 +503,14 @@ function asha_act_death_roll(m)
 
     --bonk on everythingg
     if stepResult == WATER_STEP_HIT_WALL then
+        spawn_particle(m, PARTICLE_VERTICAL_STAR)
+        play_character_sound(m, CHAR_SOUND_UH)
         return set_mario_action(m, ACT_BACKWARD_WATER_KB, 0)
     end
-    if stepResult == WATER_STEP_HIT_FLOOR then
-        return set_mario_action(m, ACT_BACKWARD_WATER_KB, 0)
-    end
+    
     if stepResult == WATER_STEP_HIT_CEILING then
+        spawn_particle(m, PARTICLE_HORIZONTAL_STAR)
+        play_character_sound(m, CHAR_SOUND_UH)
         return set_mario_action(m, ACT_BACKWARD_WATER_KB, 0)
     end
 
