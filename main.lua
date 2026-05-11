@@ -98,7 +98,7 @@ local CAPS_ASHA = {
 
 
 CHAR_ASHA = _G.charSelect.character_add(
-    "Asha the Crocodile", -- Character Name
+    "Asha The Crocodile", -- Character Name
     "A wrestling crocodile that wants to take on the whole world!", -- Description
     "Honi", -- Credits
     "FFFFFF",           -- Menu Color

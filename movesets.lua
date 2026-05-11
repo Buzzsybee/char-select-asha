@@ -70,9 +70,7 @@ end
 function act_double_lariat(m)
     init_locals(m)
      -- turn heavy objects into light
-    local lariatsound = audio_sample_load("LariatMoves.ogg")
     if m.actionTimer == 0 then
-        audio_sample_play(lariatsound, m.marioObj.header.gfx.cameraToObject, 2)
         m.invincTimer = 80
     end
     set_mario_animation(m, MARIO_ANIM_TWIRL)
@@ -91,7 +89,6 @@ function act_double_lariat(m)
     if m.actionTimer > 80 or not buttonZdown then
         m.invincTimer = 0
         m.actionTimer = 0
-        audio_sample_stop(lariatsound)
         return set_mario_action(m, ACT_IDLE, 0)
     end
 
@@ -103,7 +100,6 @@ hook_mario_action(ASHA_ACT_DOUBLE_LARIAT, act_double_lariat, INT_KICK)
 function act_running_lariat(m)
     init_locals(m)
 
-    local lariatsound = audio_sample_load("LariatMoves.ogg")
 
     if buttonApress then
         m.vel.y = 50.0
@@ -116,8 +112,6 @@ function act_running_lariat(m)
 
     if m.actionTimer == 0 then
         play_sound(SOUND_ACTION_SPIN, m.marioObj.header.gfx.cameraToObject)
-        audio_sample_play(lariatsound, m.marioObj.header.gfx.cameraToObject, 2)
-
         m.invincTimer = 30
     end
     set_mario_animation(m, MARIO_ANIM_TWIRL)
@@ -136,7 +130,6 @@ function act_running_lariat(m)
     if m.actionTimer > 70 then
         m.invincTimer = 0
         m.actionTimer = 0
-        audio_sample_stop(lariatsound)
         return set_mario_action(m, ACT_WALKING, 0)
     end
 
