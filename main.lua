@@ -90,6 +90,12 @@ local VOICETABLE_ASHA = {
 	[CHAR_SOUND_MAMA_MIA] =          'CharGameOver.ogg' -- Booted out of level
 }
 
+local CAPS_ASHA = {
+    normal = smlua_model_util_get_id("asha_cap_geo"),
+    wing = smlua_model_util_get_id("asha_wingcap_geo"),
+    metal = smlua_model_util_get_id("asha_metalcap_geo"),
+}
+
 
 CHAR_ASHA = _G.charSelect.character_add(
     "Asha the Crocodile", -- Character Name
@@ -105,3 +111,4 @@ CHAR_ASHA = _G.charSelect.character_add(
 if anims then charSelect.character_add_animations(E_MODEL_ASHA, anims) end
 charSelect.character_add_voice(E_MODEL_ASHA, VOICETABLE_ASHA)
 charSelect.character_add_graffiti(CHAR_ASHA, ASHA_GRAFFITI)
+charSelect.character_add_caps(E_MODEL_ASHA, CAPS_ASHA)
