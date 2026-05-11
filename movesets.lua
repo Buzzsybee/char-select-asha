@@ -91,6 +91,7 @@ function act_double_lariat(m)
     if m.actionTimer > 80 or not buttonZdown then
         m.invincTimer = 0
         m.actionTimer = 0
+        audio_sample_stop(lariatsound)
         return set_mario_action(m, ACT_IDLE, 0)
     end
 
@@ -135,6 +136,7 @@ function act_running_lariat(m)
     if m.actionTimer > 70 then
         m.invincTimer = 0
         m.actionTimer = 0
+        audio_sample_stop(lariatsound)
         return set_mario_action(m, ACT_WALKING, 0)
     end
 
