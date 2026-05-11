@@ -71,7 +71,7 @@ function act_double_lariat(m)
     init_locals(m)
      -- turn heavy objects into light
     if m.actionTimer == 0 then
-        m.invincTimer = 80
+        m.invincTimer = 30
     end
     set_mario_animation(m, MARIO_ANIM_TWIRL)
 
