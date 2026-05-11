@@ -6,9 +6,9 @@ Lights1 asha_metalcap_belt_gold_lights = gdSPDefLights1(
 	0x7F, 0x64, 0x0,
 	0xFF, 0xCB, 0x0, 0x28, 0x28, 0x28);
 
-Lights1 asha_metalcap_buckle_lights = gdSPDefLights1(
-	0x7F, 0x7F, 0x7F,
-	0xFF, 0xFF, 0xFF, 0x28, 0x28, 0x28);
+Lights1 asha_metalcap_buckle_cap_lights = gdSPDefLights1(
+	0x72, 0x7F, 0x0,
+	0xE6, 0xFF, 0x0, 0x28, 0x28, 0x28);
 
 Texture asha_metalcap_Metal_Shade_rgba16_rgba16[] = {
 	#include "actors/asha_metalcap/Metal_Shade.rgba16.inc.c"
@@ -16,10 +16,6 @@ Texture asha_metalcap_Metal_Shade_rgba16_rgba16[] = {
 
 Texture asha_metalcap_Metal_Light_rgba16_rgba16[] = {
 	#include "actors/asha_metalcap/Metal_Light.rgba16.inc.c"
-};
-
-Texture asha_metalcap_asha_emblem_rgba16[] = {
-	#include "actors/asha_metalcap/asha_emblem.rgba16.inc.c"
 };
 
 Vtx asha_metalcap_Metal_Cap_DL_mesh_layer_1_vtx_0[89] = {
@@ -281,17 +277,17 @@ Gfx asha_metalcap_Metal_Cap_DL_mesh_layer_1_tri_1[] = {
 	gsSPEndDisplayList(),
 };
 
-Vtx asha_metalcap_Metal_Cap_DL_mesh_layer_4_vtx_0[6] = {
-	{{{0, -4, 48}, 0, {2032, 3419}, {0x00, 0x00, 0x7F, 0xFF}}},
-	{{{100, -4, 35}, 0, {4065, 3419}, {0x10, 0x00, 0x7E, 0xFF}}},
-	{{{100, 110, 35}, 0, {4065, 673}, {0x10, 0x00, 0x7E, 0xFF}}},
-	{{{0, 110, 48}, 0, {2032, 673}, {0x00, 0x00, 0x7F, 0xFF}}},
-	{{{-100, 110, 35}, 0, {4065, 673}, {0xF0, 0x00, 0x7E, 0xFF}}},
-	{{{-100, -4, 35}, 0, {4065, 3419}, {0xF0, 0x00, 0x7E, 0xFF}}},
+Vtx asha_metalcap_Metal_Cap_DL_mesh_layer_1_vtx_2[6] = {
+	{{{0, 15, 50}, 0, {496, 843}, {0x00, 0x00, 0x7F, 0xFF}}},
+	{{{66, 15, 42}, 0, {1004, 843}, {0x10, 0x00, 0x7E, 0xFF}}},
+	{{{66, 91, 42}, 0, {1004, 156}, {0x10, 0x00, 0x7E, 0xFF}}},
+	{{{0, 91, 50}, 0, {496, 156}, {0x00, 0x00, 0x7F, 0xFF}}},
+	{{{-66, 91, 42}, 0, {1004, 156}, {0xF0, 0x00, 0x7E, 0xFF}}},
+	{{{-66, 15, 42}, 0, {1004, 843}, {0xF0, 0x00, 0x7E, 0xFF}}},
 };
 
-Gfx asha_metalcap_Metal_Cap_DL_mesh_layer_4_tri_0[] = {
-	gsSPVertex(asha_metalcap_Metal_Cap_DL_mesh_layer_4_vtx_0 + 0, 6, 0),
+Gfx asha_metalcap_Metal_Cap_DL_mesh_layer_1_tri_2[] = {
+	gsSPVertex(asha_metalcap_Metal_Cap_DL_mesh_layer_1_vtx_2 + 0, 6, 0),
 	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
 	gsSP2Triangles(0, 3, 4, 0, 0, 4, 5, 0),
 	gsSPEndDisplayList(),
@@ -340,23 +336,16 @@ Gfx mat_revert_asha_metalcap_belt_gold[] = {
 	gsSPEndDisplayList(),
 };
 
-Gfx mat_asha_metalcap_buckle[] = {
-	gsSPClearGeometryMode(G_CULL_BACK),
-	gsSPCopyLightsPlayerPart(EMBLEM),
+Gfx mat_asha_metalcap_buckle_cap[] = {
+	gsSPSetLights1(asha_metalcap_buckle_cap_lights),
 	gsDPPipeSync(),
-	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, SHADE, 0, TEXEL0, 0, ENVIRONMENT, 0),
+	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsDPSetAlphaDither(G_AD_NOISE),
 	gsSPTexture(65535, 65535, 0, 0, 1),
-	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b_LOAD_BLOCK, 1, asha_metalcap_asha_emblem_rgba16),
-	gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b_LOAD_BLOCK, 0, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0),
-	gsDPLoadBlock(7, 0, 0, 16383, 64),
-	gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 7, 0),
-	gsDPSetTileSize(0, 0, 0, 508, 508),
 	gsSPEndDisplayList(),
 };
 
-Gfx mat_revert_asha_metalcap_buckle[] = {
-	gsSPSetGeometryMode(G_CULL_BACK),
+Gfx mat_revert_asha_metalcap_buckle_cap[] = {
 	gsDPPipeSync(),
 	gsDPSetAlphaDither(G_AD_DISABLE),
 	gsSPEndDisplayList(),
@@ -369,13 +358,9 @@ Gfx asha_metalcap_Metal_Cap_DL_mesh_layer_1[] = {
 	gsSPDisplayList(mat_asha_metalcap_belt_gold),
 	gsSPDisplayList(asha_metalcap_Metal_Cap_DL_mesh_layer_1_tri_1),
 	gsSPDisplayList(mat_revert_asha_metalcap_belt_gold),
-	gsSPEndDisplayList(),
-};
-
-Gfx asha_metalcap_Metal_Cap_DL_mesh_layer_4[] = {
-	gsSPDisplayList(mat_asha_metalcap_buckle),
-	gsSPDisplayList(asha_metalcap_Metal_Cap_DL_mesh_layer_4_tri_0),
-	gsSPDisplayList(mat_revert_asha_metalcap_buckle),
+	gsSPDisplayList(mat_asha_metalcap_buckle_cap),
+	gsSPDisplayList(asha_metalcap_Metal_Cap_DL_mesh_layer_1_tri_2),
+	gsSPDisplayList(mat_revert_asha_metalcap_buckle_cap),
 	gsSPEndDisplayList(),
 };
 

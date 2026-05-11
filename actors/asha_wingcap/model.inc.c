@@ -1,14 +1,14 @@
-Lights1 asha_wingcap_buckle_lights = gdSPDefLights1(
-	0x7F, 0x7F, 0x7F,
-	0xFF, 0xFF, 0xFF, 0x28, 0x28, 0x28);
-
-Lights1 asha_wingcap_cuffs_lights = gdSPDefLights1(
-	0x15, 0x13, 0x13,
-	0x35, 0x31, 0x31, 0x28, 0x28, 0x28);
+Lights1 asha_wingcap_metal_gold_lights = gdSPDefLights1(
+	0x7F, 0x7B, 0x0,
+	0xFF, 0xF7, 0x0, 0x28, 0x28, 0x28);
 
 Lights1 asha_wingcap_belt_gold_lights = gdSPDefLights1(
 	0x7F, 0x64, 0x0,
 	0xFF, 0xCB, 0x0, 0x28, 0x28, 0x28);
+
+Lights1 asha_wingcap_buckle_cap_lights = gdSPDefLights1(
+	0x72, 0x7F, 0x0,
+	0xE6, 0xFF, 0x0, 0x28, 0x28, 0x28);
 
 Texture asha_wingcap_wing_2_rgba16[] = {
 	#include "actors/asha_wingcap/wing_2.rgba16.inc.c"
@@ -16,10 +16,6 @@ Texture asha_wingcap_wing_2_rgba16[] = {
 
 Texture asha_wingcap_wing1_rgba16[] = {
 	#include "actors/asha_wingcap/wing1.rgba16.inc.c"
-};
-
-Texture asha_wingcap_asha_emblem_rgba16[] = {
-	#include "actors/asha_wingcap/asha_emblem.rgba16.inc.c"
 };
 
 Vtx asha_wingcap_Wing_Cap_DL_mesh_layer_4_vtx_0[8] = {
@@ -55,24 +51,6 @@ Gfx asha_wingcap_Wing_Cap_DL_mesh_layer_4_tri_1[] = {
 	gsSPVertex(asha_wingcap_Wing_Cap_DL_mesh_layer_4_vtx_1 + 0, 8, 0),
 	gsSP2Triangles(0, 1, 2, 0, 1, 3, 2, 0),
 	gsSP2Triangles(4, 5, 6, 0, 4, 7, 5, 0),
-	gsSPEndDisplayList(),
-};
-
-Vtx asha_wingcap_Wing_Cap_DL_mesh_layer_4_vtx_2[8] = {
-	{{{0, -4, 48}, 0, {2032, 3419}, {0x10, 0x00, 0x7E, 0xFF}}},
-	{{{100, -4, 35}, 0, {4065, 3419}, {0x10, 0x00, 0x7E, 0xFF}}},
-	{{{100, 110, 35}, 0, {4065, 673}, {0x10, 0x00, 0x7E, 0xFF}}},
-	{{{0, 110, 48}, 0, {2032, 673}, {0x10, 0x00, 0x7E, 0xFF}}},
-	{{{0, -4, 48}, 0, {2032, 3419}, {0xF0, 0x00, 0x7E, 0xFF}}},
-	{{{0, 110, 48}, 0, {2032, 673}, {0xF0, 0x00, 0x7E, 0xFF}}},
-	{{{-100, 110, 35}, 0, {4065, 673}, {0xF0, 0x00, 0x7E, 0xFF}}},
-	{{{-100, -4, 35}, 0, {4065, 3419}, {0xF0, 0x00, 0x7E, 0xFF}}},
-};
-
-Gfx asha_wingcap_Wing_Cap_DL_mesh_layer_4_tri_2[] = {
-	gsSPVertex(asha_wingcap_Wing_Cap_DL_mesh_layer_4_vtx_2 + 0, 8, 0),
-	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
-	gsSP2Triangles(4, 5, 6, 0, 4, 6, 7, 0),
 	gsSPEndDisplayList(),
 };
 
@@ -331,6 +309,24 @@ Gfx asha_wingcap_Wing_Cap_DL_mesh_layer_1_tri_1[] = {
 	gsSPEndDisplayList(),
 };
 
+Vtx asha_wingcap_Wing_Cap_DL_mesh_layer_1_vtx_2[8] = {
+	{{{0, 15, 50}, 0, {496, 843}, {0x10, 0x00, 0x7E, 0xFF}}},
+	{{{66, 15, 42}, 0, {1004, 843}, {0x10, 0x00, 0x7E, 0xFF}}},
+	{{{66, 91, 42}, 0, {1004, 156}, {0x10, 0x00, 0x7E, 0xFF}}},
+	{{{0, 91, 50}, 0, {496, 156}, {0x10, 0x00, 0x7E, 0xFF}}},
+	{{{0, 15, 50}, 0, {496, 843}, {0xF0, 0x00, 0x7E, 0xFF}}},
+	{{{0, 91, 50}, 0, {496, 156}, {0xF0, 0x00, 0x7E, 0xFF}}},
+	{{{-66, 91, 42}, 0, {1004, 156}, {0xF0, 0x00, 0x7E, 0xFF}}},
+	{{{-66, 15, 42}, 0, {1004, 843}, {0xF0, 0x00, 0x7E, 0xFF}}},
+};
+
+Gfx asha_wingcap_Wing_Cap_DL_mesh_layer_1_tri_2[] = {
+	gsSPVertex(asha_wingcap_Wing_Cap_DL_mesh_layer_1_vtx_2 + 0, 8, 0),
+	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
+	gsSP2Triangles(4, 5, 6, 0, 4, 6, 7, 0),
+	gsSPEndDisplayList(),
+};
+
 
 Gfx mat_asha_wingcap_Wing_Tip[] = {
 	gsSPClearGeometryMode(G_CULL_BACK),
@@ -374,30 +370,8 @@ Gfx mat_revert_asha_wingcap_Wing_Base[] = {
 	gsSPEndDisplayList(),
 };
 
-Gfx mat_asha_wingcap_buckle[] = {
-	gsSPClearGeometryMode(G_CULL_BACK),
-	gsSPCopyLightsPlayerPart(EMBLEM),
-	gsDPPipeSync(),
-	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, SHADE, 0, TEXEL0, 0, ENVIRONMENT, 0),
-	gsDPSetAlphaDither(G_AD_NOISE),
-	gsSPTexture(65535, 65535, 0, 0, 1),
-	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b_LOAD_BLOCK, 1, asha_wingcap_asha_emblem_rgba16),
-	gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b_LOAD_BLOCK, 0, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0),
-	gsDPLoadBlock(7, 0, 0, 16383, 64),
-	gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 7, 0),
-	gsDPSetTileSize(0, 0, 0, 508, 508),
-	gsSPEndDisplayList(),
-};
-
-Gfx mat_revert_asha_wingcap_buckle[] = {
-	gsSPSetGeometryMode(G_CULL_BACK),
-	gsDPPipeSync(),
-	gsDPSetAlphaDither(G_AD_DISABLE),
-	gsSPEndDisplayList(),
-};
-
-Gfx mat_asha_wingcap_cuffs[] = {
-	gsSPCopyLightsPlayerPart(CAP),
+Gfx mat_asha_wingcap_metal_gold[] = {
+	gsSPSetLights1(asha_wingcap_metal_gold_lights),
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsDPSetAlphaDither(G_AD_NOISE),
@@ -405,7 +379,7 @@ Gfx mat_asha_wingcap_cuffs[] = {
 	gsSPEndDisplayList(),
 };
 
-Gfx mat_revert_asha_wingcap_cuffs[] = {
+Gfx mat_revert_asha_wingcap_metal_gold[] = {
 	gsDPPipeSync(),
 	gsDPSetAlphaDither(G_AD_DISABLE),
 	gsSPEndDisplayList(),
@@ -426,6 +400,21 @@ Gfx mat_revert_asha_wingcap_belt_gold[] = {
 	gsSPEndDisplayList(),
 };
 
+Gfx mat_asha_wingcap_buckle_cap[] = {
+	gsSPSetLights1(asha_wingcap_buckle_cap_lights),
+	gsDPPipeSync(),
+	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
+	gsDPSetAlphaDither(G_AD_NOISE),
+	gsSPTexture(65535, 65535, 0, 0, 1),
+	gsSPEndDisplayList(),
+};
+
+Gfx mat_revert_asha_wingcap_buckle_cap[] = {
+	gsDPPipeSync(),
+	gsDPSetAlphaDither(G_AD_DISABLE),
+	gsSPEndDisplayList(),
+};
+
 Gfx asha_wingcap_Wing_Cap_DL_mesh_layer_4[] = {
 	gsSPDisplayList(mat_asha_wingcap_Wing_Tip),
 	gsSPDisplayList(asha_wingcap_Wing_Cap_DL_mesh_layer_4_tri_0),
@@ -433,19 +422,19 @@ Gfx asha_wingcap_Wing_Cap_DL_mesh_layer_4[] = {
 	gsSPDisplayList(mat_asha_wingcap_Wing_Base),
 	gsSPDisplayList(asha_wingcap_Wing_Cap_DL_mesh_layer_4_tri_1),
 	gsSPDisplayList(mat_revert_asha_wingcap_Wing_Base),
-	gsSPDisplayList(mat_asha_wingcap_buckle),
-	gsSPDisplayList(asha_wingcap_Wing_Cap_DL_mesh_layer_4_tri_2),
-	gsSPDisplayList(mat_revert_asha_wingcap_buckle),
 	gsSPEndDisplayList(),
 };
 
 Gfx asha_wingcap_Wing_Cap_DL_mesh_layer_1[] = {
-	gsSPDisplayList(mat_asha_wingcap_cuffs),
+	gsSPDisplayList(mat_asha_wingcap_metal_gold),
 	gsSPDisplayList(asha_wingcap_Wing_Cap_DL_mesh_layer_1_tri_0),
-	gsSPDisplayList(mat_revert_asha_wingcap_cuffs),
+	gsSPDisplayList(mat_revert_asha_wingcap_metal_gold),
 	gsSPDisplayList(mat_asha_wingcap_belt_gold),
 	gsSPDisplayList(asha_wingcap_Wing_Cap_DL_mesh_layer_1_tri_1),
 	gsSPDisplayList(mat_revert_asha_wingcap_belt_gold),
+	gsSPDisplayList(mat_asha_wingcap_buckle_cap),
+	gsSPDisplayList(asha_wingcap_Wing_Cap_DL_mesh_layer_1_tri_2),
+	gsSPDisplayList(mat_revert_asha_wingcap_buckle_cap),
 	gsSPEndDisplayList(),
 };
 
