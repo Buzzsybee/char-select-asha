@@ -43,7 +43,7 @@ anims = {
 local VOICETABLE_ASHA = {
     [CHAR_SOUND_OKEY_DOKEY] =        'CharStartGame.ogg', -- Starting game
 	[CHAR_SOUND_LETS_A_GO] =         'CharStartLevel.ogg', -- Starting level
-	[CHAR_SOUND_GAME_OVER] =         'CharGameOver.ogg', -- Game Overed
+	[CHAR_SOUND_GAME_OVER] =         'CharLeaveLevel.ogg', -- Game Overed
 	[CHAR_SOUND_PUNCH_YAH] =         'CharPunch1.ogg', -- Punch 1
 	[CHAR_SOUND_PUNCH_WAH] =         'CharPunch2.ogg', -- Punch 2
 	[CHAR_SOUND_PUNCH_HOO] =         'CharPunch3.ogg', -- Punch 3
@@ -87,7 +87,7 @@ local VOICETABLE_ASHA = {
 --DEATH
 	[CHAR_SOUND_DYING] =             'CharDying.ogg', -- Dying from damage
 	[CHAR_SOUND_DROWNING] =          'CharDrowning.ogg', -- Running out of air underwater
-	[CHAR_SOUND_MAMA_MIA] =          'CharLeaveLevel.ogg' -- Booted out of level
+	[CHAR_SOUND_MAMA_MIA] =          'CharGameOver.ogg' -- Booted out of level
 }
 
 
