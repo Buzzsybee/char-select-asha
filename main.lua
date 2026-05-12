@@ -1,4 +1,4 @@
--- name: [CS] Asha the Crocodile
+-- name: [CS] Asha The Crocodile
 -- description: A wrestling crocodile that wants to take on the whole world!
 
 local TEXT_MOD_NAME = "[CS] Asha"
@@ -101,7 +101,7 @@ CHAR_ASHA = _G.charSelect.character_add(
     "Asha The Crocodile", -- Character Name
     "A wrestling crocodile that wants to take on the whole world!", -- Description
     "Honi", -- Credits
-    "FFFFFF",           -- Menu Color
+    "00AF03",           -- Menu Color
     E_MODEL_ASHA,       -- Character Model
     CT_MARIO,           -- Override Character
     ICON_ASHA, -- Life Icon
