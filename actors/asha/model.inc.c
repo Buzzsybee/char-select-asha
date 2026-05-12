@@ -7,8 +7,8 @@ Lights1 asha_skin_lights = gdSPDefLights1(
 	0xA7, 0xBD, 0x5A, 0x28, 0x28, 0x28);
 
 Lights1 asha_belly_lights = gdSPDefLights1(
-	0x51, 0x5D, 0x29,
-	0xA7, 0xBD, 0x5A, 0x28, 0x28, 0x28);
+	0x71, 0x7F, 0x40,
+	0xE4, 0xFF, 0x86, 0x28, 0x28, 0x28);
 
 Lights1 asha_buckle_lights = gdSPDefLights1(
 	0x7F, 0x7F, 0x7F,
@@ -4170,13 +4170,11 @@ Gfx mat_revert_asha_skin[] = {
 };
 
 Gfx mat_asha_belly[] = {
-	gsSPCopyLightsPlayerPart(SKIN),
+	gsSPCopyLightsPlayerPart(SHOES),
 	gsDPPipeSync(),
-	gsDPSetCombineLERP(0, 0, SHADE, PRIMITIVE, 0, 0, 0, ENVIRONMENT, 0, 0, SHADE, PRIMITIVE, 0, 0, 0, ENVIRONMENT),
+	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsDPSetAlphaDither(G_AD_NOISE),
 	gsSPTexture(65535, 65535, 0, 0, 1),
-	gsDPSetPrimColor(0, 0, 190, 255, 147, 255),
-	gsSPCopyPlayerPartToColor(G_COL_PRIM, 5, 0),
 	gsSPEndDisplayList(),
 };
 
