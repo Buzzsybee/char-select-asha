@@ -4,9 +4,9 @@
 
 Asha The Crocodile Includes:
 
-**Standing Z+B: Double Lariat** - Spin around in an invincible state that protects against attacks and hits anything that comes near! You have a limited amount of movement as well!
+**Standing Z+B: Double Lariat** - Spin around in a temporarily invincible state that protects against attacks and hits anything that comes near! You have a limited amount of movement as well!
 
-**Running Z+B: Running Double Lariat** - Spin around in an invincible state that propels forward, protects against attacks, and hits anything that comes near!
+**Running Z+B: Running Double Lariat** - Spin around in a temporarily invincible state that propels forward, protects against attacks, and hits anything that comes near!
 
 **Running Z+B -> A: Flying Body Press** - Fly into the air and unleash a powerful body slam that sends out a shockwave that hits surrounding enemies! Your invincible state is withdrawn when you switch to this move.
 
@@ -18,4 +18,4 @@ Asha The Crocodile Includes:
 
 **While holding something -> Spin the stick: Bowser Toss** - Throw 'em away!
 
-**Passive Trait: Carrying heavy things will act the same as carrying small things! You can even jump with them!
+**Passive Trait:** Carrying heavy things will act the same as carrying small things! You can even jump with them!
