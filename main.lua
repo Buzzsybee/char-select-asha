@@ -112,3 +112,4 @@ if anims then charSelect.character_add_animations(E_MODEL_ASHA, anims) end
 charSelect.character_add_voice(E_MODEL_ASHA, VOICETABLE_ASHA)
 charSelect.character_add_graffiti(CHAR_ASHA, ASHA_GRAFFITI)
 charSelect.character_add_caps(E_MODEL_ASHA, CAPS_ASHA)
+charSelect.character_set_nickname(CHAR_ASHA, "Asha")
