@@ -225,7 +225,7 @@ hook_mario_action(ACT_PILEDRIVER, act_piledriver)
 function act_piledriver_land(m)
     if m.actionTimer == 0 then
         m.invincTimer = 2
-        spawn_explosion(m, PARTICLE_MIST_CIRCLE)
+        shockwave_spawn(m)
     end
     set_mario_animation(m, MARIO_ANIM_SWINGING_BOWSER)
 
