@@ -33,11 +33,40 @@ local PALETTE_ASHA_HUGO = {
     [CAP]    = "353131",
     [EMBLEM] = "FFFFFF"
 }
+
+local PALETTE_ASHA_HAGGAR = {
+    [PANTS]  = "3d4922",
+    [SHIRT]  = "e9b597",
+    [GLOVES] = "FFFFFF",
+    [SHOES]  = "e9b597",
+    [HAIR]   = "452f24",
+    [SKIN]   = "e9b597",
+    [CAP]    = "352b2a",
+    [EMBLEM] = "FFFFFF"
+}
 _G.charSelect.character_add_palette_preset(E_MODEL_ASHA, PALETTE_ASHA, "Default")
 _G.charSelect.character_add_palette_preset(E_MODEL_ASHA, PALETTE_ASHA_HUGO, "Hugo")
+_G.charSelect.character_add_palette_preset(E_MODEL_ASHA, PALETTE_ASHA_HAGGAR, "Haggar")
 
 anims = {
     [charSelect.CS_ANIM_MENU] = 'ASHA_MENU_POSE'
+}
+
+local PM_ASHA= {
+    label = {
+        left = get_texture_info("LeftHealth"),
+        right = get_texture_info("RightHealth"),
+    },
+    pie = {
+        [1] = get_texture_info("Pie1"),
+        [2] = get_texture_info("Pie2"),
+        [3] = get_texture_info("Pie3"),
+        [4] = get_texture_info("Pie4"),
+        [5] = get_texture_info("Pie5"),
+        [6] = get_texture_info("Pie6"),
+        [7] = get_texture_info("Pie7"),
+        [8] = get_texture_info("Pie8"),
+    }
 }
 
 local VOICETABLE_ASHA = {
@@ -113,3 +142,4 @@ charSelect.character_add_voice(E_MODEL_ASHA, VOICETABLE_ASHA)
 charSelect.character_add_graffiti(CHAR_ASHA, ASHA_GRAFFITI)
 charSelect.character_add_caps(E_MODEL_ASHA, CAPS_ASHA)
 charSelect.character_set_nickname(CHAR_ASHA, "Asha")
+charSelect.character_add_health_meter(CHAR_ASHA, PM_ASHA)
